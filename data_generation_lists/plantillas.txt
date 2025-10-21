@@ -1,0 +1,3 @@
+Hola, mi nombre es {NOMBRE} {APELLIDO} y mi DNI es {DNI}.
+Mi número es {TELEFONO} y vivo en {DIRECCION}.
+Registra una cita para el {FECHA} a las {HORA}.

@@ -1,0 +1,8 @@
+# Grid para SVM RBF
+seed: 42
+model:
+  name: svm
+  grid:
+    kernel: ["rbf"]
+    C: [0.5, 1.0, 2.0]
+    gamma: ["scale", 0.1, 0.01]

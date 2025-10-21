@@ -1,0 +1,27 @@
+# Experimento baseline: SVM lineal + ventana k=1 + fastText 100d
+seed: 42
+data:
+  train_path: data/train.conll
+  val_path: data/val.conll
+  test_path: data/test.conll
+  synthetic_noise_pct: 0  # 0, 5, 10 para robustez
+features:
+  embeddings:
+    type: fasttext
+    path: models/cc.es.100.bin  # colocar aquí el archivo reducido
+  window_k: 1
+  use_pos: true
+  use_handcrafted: true  # is_digit, longitud, capitalización, posición
+model:
+  name: svm
+  params:
+    kernel: linear
+    C: 1.0
+train:
+  cv_folds: 5
+  early_stopping: false
+eval:
+  metrics: [f1_macro, f1_per_label, precision, recall]
+  latency: true
+output:
+  dir: experiments/results/baseline_svm_linear

@@ -1,0 +1,10 @@
+# Grid para MLP
+seed: 42
+model:
+  name: mlp
+  grid:
+    hidden_sizes: [[128], [256], [256,128]]
+    dropout: [0.0, 0.2]
+    lr: [1e-3, 5e-4]
+    batch_size: [32, 64]
+    epochs: [10, 20]

@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.env
+.ipynb_checkpoints/
+
+# Data / Models
+data/raw/
+data/cache/
+models/**
+!models/.gitkeep
+experiments/results/**
+!experiments/results/.gitkeep
+
+# OS / Editor
+.DS_Store
+.vscode/
