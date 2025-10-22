@@ -3,6 +3,8 @@ pandas
 scikit-learn
 matplotlib
 spacy
+spacy>=3.8
+es_core_news_md @ https://github.com/explosion/spacy-models/releases/download/es_core_news_md-3.8.0/es_core_news_md-3.8.0-py3-none-any.whl
 stanza
 faster-whisper
 openai-whisper

@@ -1,4 +1,5 @@
 # --- rutas para importar desde src/ner ---
+import datetime
 import sys
 from pathlib import Path
 
@@ -18,10 +19,6 @@ import soundfile as sf
 import joblib
 from faster_whisper import WhisperModel
 
-# --- Import robusto de token_features ---
-# Soporta dos estructuras:
-#   A) TA-IA-pipeline/svm_baseline.py        (raíz)
-#   B) TA-IA-pipeline/src/svm_baseline.py    (dentro de src)
 ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 for p in [str(ROOT), str(SRC)]:
@@ -29,6 +26,61 @@ for p in [str(ROOT), str(SRC)]:
         sys.path.insert(0, p)
 
 TOK_RE = re.compile(r"\d+|[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[^\w\s]", re.UNICODE)
+
+DNI_RE = re.compile(r"\b(?:\d{8}|\d{4}[-\s]\d{4}|\d{2}(?:[-\s]\d{2}){3})\b")
+
+def _digits(s: str) -> str:
+    return re.sub(r"\D", "", s or "")
+
+def _parse_fecha(s: str) -> bool:
+    s = (s or "").strip().lower()
+    # dd/mm/aaaa | dd-mm-aaaa
+    for fmt in ("%d/%m/%Y", "%d-%m-%Y"):
+        try:
+            datetime.strptime(s, fmt); return True
+        except Exception:
+            pass
+    # "28 de mayo del 2004" (simple)
+    m = re.match(r"^(\d{1,2})\s+de\s+([a-záéíóú]+)\s+del\s+(\d{4})$", s)
+    if m:
+        d, mes, y = int(m.group(1)), m.group(2), int(m.group(3))
+        meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto",
+                 "septiembre","octubre","noviembre","diciembre"]
+        return mes in meses and 1 <= d <= 31 and 1900 <= y <= 2100
+    return False
+
+def fix_entities_with_rules(text: str, ent_map: dict) -> dict:
+    """
+    - Si falta DNI, lo busca en el texto (admite 73-88-43-59, 73884359, 7388 4359).
+    - Si 'FECHA_NAC' parece 8 dígitos y NO es fecha válida, lo trata como DNI.
+    - Normaliza el DNI a 8 dígitos para mostrar bonito.
+    """
+    ent_map = dict(ent_map)  # copia
+
+    # 1) si no hay DNI, intenta sacarlo del texto
+    if not ent_map.get("DNI"):
+        m = DNI_RE.search(text)
+        if m:
+            dig = _digits(m.group(0))
+            if len(dig) == 8:
+                ent_map["DNI"] = dig
+
+    # 2) si FECHA_NAC parece DNI y no parsea como fecha -> úsalo como DNI
+    fn = ent_map.get("FECHA_NAC")
+    if fn:
+        dig = _digits(fn)
+        if len(dig) == 8 and not _parse_fecha(fn):
+            ent_map.setdefault("DNI", dig)
+            # opcional: borrar la "fecha" inválida
+            # ent_map.pop("FECHA_NAC", None)
+
+    # 3) normaliza el formato del DNI a 8 dígitos
+    if ent_map.get("DNI"):
+        d = _digits(ent_map["DNI"])
+        if len(d) == 8:
+            ent_map["DNI"] = d
+
+    return ent_map
 
 def tokenize(text: str):
     return [m.group(0) for m in TOK_RE.finditer(text)]
@@ -157,6 +209,8 @@ def main():
     ent_map = {}
     for s in spans:
         ent_map.setdefault(s["type"], s["text"])
+    
+    ent_map = fix_entities_with_rules(text, ent_map)
 
     order = ["NOMBRES","APELLIDOS","DNI","TIPO_DOC","FECHA_NAC","TELEFONO","DISTRITO","DIRECCION"]
     print("\n=== Entidades extraídas ===")
