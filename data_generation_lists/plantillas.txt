@@ -1,3 +1,67 @@
-Hola, mi nombre es {NOMBRE} {APELLIDO} y mi DNI es {DNI}.
-Mi número es {TELEFONO} y vivo en {DIRECCION}.
-Registra una cita para el {FECHA} a las {HORA}.
+Mi nombre es {NOMBRES} y mis apellidos son {APELLIDOS}; mi tipo de documento es {TIPO_DOC} y su número es {DNI}; nací el {FECHA_NAC}; mi número de teléfono es {TELEFONO}; vivo en Lima, distrito de {DISTRITO}; dirección {DIRECCION}.
+Soy {NOMBRES} {APELLIDOS}; {TIPO_DOC} n° {DNI}; fecha de nacimiento {FECHA_NAC}; celular {TELEFONO}; resido en Lima, {DISTRITO}; {DIRECCION}.
+Me llamo {NOMBRES} {APELLIDOS}. Mi {TIPO_DOC} es {DNI}. Nací el {FECHA_NAC}. Teléfono {TELEFONO}. Vivo en Lima (distrito {DISTRITO}), dirección {DIRECCION}.
+{NOMBRES} {APELLIDOS}; doc: {TIPO_DOC} {DNI}; F. nac.: {FECHA_NAC}; tel.: {TELEFONO}; Lima–{DISTRITO}; {DIRECCION}.
+Registro: Nombres {NOMBRES}; Apellidos {APELLIDOS}; {TIPO_DOC} {DNI}; Fecha de nacimiento {FECHA_NAC}; Teléfono {TELEFONO}; Dirección {DIRECCION}; Ciudad Lima; Distrito {DISTRITO}.
+Para el formulario: {NOMBRES} {APELLIDOS}, {TIPO_DOC} {DNI}, nacido el {FECHA_NAC}, celular {TELEFONO}, domicilio {DIRECCION}, Lima – {DISTRITO}.
+Declaro que me llamo {NOMBRES} {APELLIDOS}; mi {TIPO_DOC} n.º {DNI}; nací el {FECHA_NAC}; teléfono {TELEFONO}; vivo en {DIRECCION}, distrito {DISTRITO}, Lima.
+Datos: {NOMBRES} {APELLIDOS} — {TIPO_DOC} {DNI} — F. nac. {FECHA_NAC} — Tel. {TELEFONO} — {DIRECCION}, {DISTRITO}, Lima.
+El titular {NOMBRES} {APELLIDOS}, con {TIPO_DOC} {DNI}, nació el {FECHA_NAC}; su contacto es {TELEFONO}; domicilio {DIRECCION}, distrito {DISTRITO}, Lima.
+{NOMBRES}; {APELLIDOS}; {TIPO_DOC}: {DNI}; Fecha de nac.: {FECHA_NAC}; Cel.: {TELEFONO}; Dir.: {DIRECCION}; Dist.: {DISTRITO}; Lima.
+Me identifico como {NOMBRES} {APELLIDOS}; documento {TIPO_DOC} No. {DNI}; nacido el {FECHA_NAC}; número de celular {TELEFONO}; dirección {DIRECCION}, Lima – {DISTRITO}.
+Soy {NOMBRES} {APELLIDOS}. {TIPO_DOC}: {DNI}. F. nacimiento: {FECHA_NAC}. Celular: {TELEFONO}. Vivo en {DIRECCION}, {DISTRITO}, Lima.
+Ficha personal: {NOMBRES} {APELLIDOS} | Doc {TIPO_DOC}: {DNI} | Nac. {FECHA_NAC} | Tel {TELEFONO} | Dir {DIRECCION} | Dist {DISTRITO} | Lima.
+{NOMBRES} {APELLIDOS}; DNI {DNI}; fecha de nacimiento {FECHA_NAC}; teléfono {TELEFONO}; vive en Lima, distrito {DISTRITO}, dirección {DIRECCION}.
+Apellidos: {APELLIDOS}; Nombres: {NOMBRES}; Documento: {TIPO_DOC} {DNI}; Nacimiento: {FECHA_NAC}; Teléfono: {TELEFONO}; Dirección: {DIRECCION}, Lima–{DISTRITO}.
+Yo, {NOMBRES} {APELLIDOS}, identificado con {TIPO_DOC} {DNI}, nacido el {FECHA_NAC}, con celular {TELEFONO}, declaro vivir en {DIRECCION}, {DISTRITO}, Lima.
+Datos del solicitante — Nombres: {NOMBRES}; Apellidos: {APELLIDOS}; {TIPO_DOC}: {DNI}; F. nac.: {FECHA_NAC}; Tel.: {TELEFONO}; Dirección: {DIRECCION}; Distrito: {DISTRITO}; Lima.
+Contacto: {NOMBRES} {APELLIDOS} / {TIPO_DOC} {DNI} / Nacido: {FECHA_NAC} / Cel: {TELEFONO} / {DIRECCION}, {DISTRITO}, Lima.
+Mi nombre completo es {NOMBRES} {APELLIDOS}; cuento con {TIPO_DOC} N° {DNI}; nací el {FECHA_NAC}; mi celular es {TELEFONO}; domicilio en {DIRECCION}, Lima – {DISTRITO}.
+{NOMBRES} {APELLIDOS}, documento {TIPO_DOC} n° {DNI}, fecha de nacimiento {FECHA_NAC}, fono {TELEFONO}, dirección {DIRECCION}, distrito {DISTRITO}, Lima.
+Señor(a), mis datos: {NOMBRES} {APELLIDOS}; {TIPO_DOC} {DNI}; nacido el {FECHA_NAC}; teléfono {TELEFONO}; resido en {DIRECCION}, {DISTRITO}, Lima.
+Solicitud: {NOMBRES} {APELLIDOS} | {TIPO_DOC} {DNI} | {FECHA_NAC} | {TELEFONO} | {DIRECCION} | {DISTRITO} | Lima.
+Identificación: {NOMBRES} {APELLIDOS} ({TIPO_DOC} {DNI}); Nacimiento {FECHA_NAC}; Contacto {TELEFONO}; Domicilio {DIRECCION}, Distrito {DISTRITO}, Lima.
+Yo soy {NOMBRES} {APELLIDOS}; mi {TIPO_DOC} es {DNI}; nací el {FECHA_NAC}; mi cel es {TELEFONO}; vivo en {DIRECCION}, Lima, {DISTRITO}.
+Postulación de {NOMBRES} {APELLIDOS}: {TIPO_DOC} {DNI}; {FECHA_NAC}; {TELEFONO}; Dirección {DIRECCION}; Distrito {DISTRITO}; Lima.
+{NOMBRES} {APELLIDOS} – {TIPO_DOC}: {DNI} – F.N.: {FECHA_NAC} – Cel.: {TELEFONO} – Dir.: {DIRECCION} – Dist.: {DISTRITO} – Lima.
+Mis datos personales son: Nombres {NOMBRES}; Apellidos {APELLIDOS}; {TIPO_DOC} {DNI}; Fecha de nacimiento {FECHA_NAC}; Teléfono {TELEFONO}; Vivo en {DIRECCION}, {DISTRITO}, Lima.
+Declaro bajo juramento: me llamo {NOMBRES} {APELLIDOS}, identificado con {TIPO_DOC} {DNI}, nacido el {FECHA_NAC}, teléfono {TELEFONO}, con domicilio en {DIRECCION}, {DISTRITO}, Lima.
+Nombre {NOMBRES}; Apellido(s) {APELLIDOS}; {TIPO_DOC} {DNI}; F. nac {FECHA_NAC}; Cel {TELEFONO}; Dir {DIRECCION}; Lima–{DISTRITO}.
+El/La solicitante {NOMBRES} {APELLIDOS}, {TIPO_DOC} {DNI}, nacido/a {FECHA_NAC}, tel. {TELEFONO}, con domicilio {DIRECCION}, {DISTRITO}, Lima.
+Yo, {NOMBRES} {APELLIDOS}; DNI {DNI}; F. nac. {FECHA_NAC}; tel. {TELEFONO}; resido en Lima, {DISTRITO}, {DIRECCION}.
+Datos básicos: {NOMBRES} {APELLIDOS}; {TIPO_DOC} {DNI}; {FECHA_NAC}; {TELEFONO}; {DIRECCION}; {DISTRITO}; Lima.
+Se consigna: {NOMBRES} {APELLIDOS} / DNI {DNI} / nacido el {FECHA_NAC} / contacto {TELEFONO} / domicilio {DIRECCION} / distrito {DISTRITO} / Lima.
+Me llamo {NOMBRES} {APELLIDOS}; mi documento es {TIPO_DOC} {DNI}; nací el {FECHA_NAC}; número de contacto {TELEFONO}; dirección {DIRECCION}, distrito {DISTRITO}, Lima.
+{NOMBRES} {APELLIDOS}, identificado con {TIPO_DOC} {DNI}; fecha de nacimiento {FECHA_NAC}; teléfono {TELEFONO}; vive en {DIRECCION}, {DISTRITO}, Lima.
+Ficha de identificación — Nombre: {NOMBRES}; Apellidos: {APELLIDOS}; Doc.: {TIPO_DOC} {DNI}; Nac.: {FECHA_NAC}; Cel.: {TELEFONO}; Dir.: {DIRECCION}; Dist.: {DISTRITO}; Lima.
+Resumen: {NOMBRES} {APELLIDOS} | {TIPO_DOC} {DNI} | {FECHA_NAC} | {TELEFONO} | {DIRECCION}, {DISTRITO}, Lima.
+Persona: {NOMBRES} {APELLIDOS}. DNI {DNI}. Nac. {FECHA_NAC}. Cel {TELEFONO}. Domicilio {DIRECCION}. Distrito {DISTRITO}. Lima.
+Mis nombres: {NOMBRES}; mis apellidos: {APELLIDOS}; mi doc.: {TIPO_DOC} {DNI}; nací el {FECHA_NAC}; mi cel: {TELEFONO}; vivo en {DIRECCION}, {DISTRITO}, Lima.
+Confirmo que mis datos son {NOMBRES} {APELLIDOS}, {TIPO_DOC} {DNI}, {FECHA_NAC}, {TELEFONO}, {DIRECCION}, {DISTRITO}, Lima.
+Identificado como {NOMBRES} {APELLIDOS}; DNI {DNI}; nac. {FECHA_NAC}; cel. {TELEFONO}; domicilio {DIRECCION}; Lima / {DISTRITO}.
+{NOMBRES} {APELLIDOS}; documento: {TIPO_DOC} n° {DNI}; nacido el {FECHA_NAC}; contacto: {TELEFONO}; dirección: {DIRECCION}, distrito {DISTRITO}, Lima.
+Formulario único — {NOMBRES} {APELLIDOS} — DNI {DNI} — F. Nac. {FECHA_NAC} — Tel. {TELEFONO} — Dir. {DIRECCION} — Dist. {DISTRITO} — Lima.
+Solicito registrar: {NOMBRES} {APELLIDOS}; DNI {DNI}; fecha {FECHA_NAC}; celular {TELEFONO}; domicilio {DIRECCION}, {DISTRITO}, Lima.
+Yo soy {NOMBRES} {APELLIDOS}; DNI {DNI}; nací el {FECHA_NAC}; número {TELEFONO}; vivo en {DIRECCION}; {DISTRITO}, Lima.
+Hoja de vida: {NOMBRES} {APELLIDOS} | Documento {TIPO_DOC}: {DNI} | Nacimiento {FECHA_NAC} | Celular {TELEFONO} | Dirección {DIRECCION} | Lima, {DISTRITO}.
+Registro rápido: {NOMBRES} {APELLIDOS}; DNI {DNI}; {FECHA_NAC}; {TELEFONO}; {DIRECCION}; {DISTRITO}-Lima.
+Señalo mis datos: {NOMBRES} {APELLIDOS}; documento {TIPO_DOC} {DNI}; nac. {FECHA_NAC}; tel. {TELEFONO}; vivo en {DIRECCION}, {DISTRITO}, Lima.
+Información del titular: {NOMBRES} {APELLIDOS}; DNI {DNI}; fecha de nacimiento {FECHA_NAC}; celular {TELEFONO}; dirección {DIRECCION}; distrito {DISTRITO}; Lima.
+Yo, {NOMBRES} {APELLIDOS}, DNI {DNI}, nacido el {FECHA_NAC}, tel. {TELEFONO}, domicilio {DIRECCION}, Lima – {DISTRITO}.
+Declaración simple: {NOMBRES} {APELLIDOS}; {TIPO_DOC} {DNI}; F. nac. {FECHA_NAC}; Tel. {TELEFONO}; Dir. {DIRECCION}; Dist. {DISTRITO}; Lima.
+{NOMBRES} {APELLIDOS} (DNI {DNI}) — nacido el {FECHA_NAC} — cel. {TELEFONO} — {DIRECCION}, {DISTRITO}, Lima.
+Datos para verificación: {NOMBRES} {APELLIDOS}; {TIPO_DOC} {DNI}; {FECHA_NAC}; {TELEFONO}; {DIRECCION}; Lima/{DISTRITO}.
+Resumen corto: {NOMBRES} {APELLIDOS}, DNI {DNI}, {FECHA_NAC}, {TELEFONO}, {DIRECCION}, {DISTRITO}, Lima.
+Yo {NOMBRES} {APELLIDOS}, con {TIPO_DOC} {DNI}, nací el {FECHA_NAC}; mi teléfono es {TELEFONO}; vivo en {DIRECCION} (Lima, {DISTRITO}).
+Ficha: Nombre {NOMBRES}; Apellidos {APELLIDOS}; Doc. {TIPO_DOC} {DNI}; Nac. {FECHA_NAC}; Cel. {TELEFONO}; Dir. {DIRECCION}; Zona Lima/{DISTRITO}.
+Perfil: {NOMBRES} {APELLIDOS} | DNI: {DNI} | Nacimiento: {FECHA_NAC} | Teléfono: {TELEFONO} | {DIRECCION} | {DISTRITO}, Lima.
+Completo: {NOMBRES} {APELLIDOS}; {TIPO_DOC} N° {DNI}; F. Nac.: {FECHA_NAC}; Cel.: {TELEFONO}; Domicilio: {DIRECCION}, {DISTRITO}, Lima.
+Contacto del titular {NOMBRES} {APELLIDOS} — {TELEFONO} — DNI {DNI} — {FECHA_NAC} — Dirección {DIRECCION} — Distrito {DISTRITO} — Lima.
+Datos mínimos: {NOMBRES} {APELLIDOS}; DNI {DNI}; {FECHA_NAC}; {DIRECCION}; {DISTRITO}; Lima; Tel. {TELEFONO}.
+Información básica — Nombres: {NOMBRES} | Apellidos: {APELLIDOS} | DNI: {DNI} | F. nac.: {FECHA_NAC} | Cel.: {TELEFONO} | Dir.: {DIRECCION} | Dist.: {DISTRITO} | Lima.
+Registro verbal: Me llamo {NOMBRES} {APELLIDOS}, mi DNI es {DNI}, nací el {FECHA_NAC}, mi celular {TELEFONO}, vivo en {DIRECCION}, {DISTRITO}, Lima.
+Consta que {NOMBRES} {APELLIDOS} porta el DNI {DNI}, nacido el {FECHA_NAC}, con teléfono {TELEFONO}, domiciliado en {DIRECCION}, {DISTRITO}, Lima.
+Se registra al ciudadano {NOMBRES} {APELLIDOS} — DNI {DNI} — nacido {FECHA_NAC} — celular {TELEFONO} — residencia {DIRECCION}, {DISTRITO}, Lima.
+Acta: {NOMBRES} {APELLIDOS}; documento {TIPO_DOC} {DNI}; fecha {FECHA_NAC}; tel {TELEFONO}; vive en {DIRECCION}, {DISTRITO}, Lima.
+Datos en una línea: {NOMBRES} {APELLIDOS} | DNI {DNI} | {FECHA_NAC} | {TELEFONO} | {DIRECCION} | Lima/{DISTRITO}.
+Identificación corta: {NOMBRES} {APELLIDOS}, DNI {DNI}, {FECHA_NAC}, {TELEFONO}, {DIRECCION}, {DISTRITO} (Lima).

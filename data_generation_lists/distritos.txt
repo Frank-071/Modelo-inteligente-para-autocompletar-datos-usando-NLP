@@ -1,0 +1,500 @@
+Ancón
+Ate
+Barranco
+Breña
+Carabayllo
+Chaclacayo
+Chorrillos
+Cieneguilla
+Comas
+El Agustino
+Independencia
+Jesús María
+La Molina
+La Victoria
+Lima
+Lince
+Los Olivos
+Lurigancho
+Lurín
+Magdalena del Mar
+Miraflores
+Pachacamac
+Pucusana
+Pueblo Libre
+Puente Piedra
+Punta Hermosa
+Punta Negra
+Rímac
+San Bartolo
+San Borja
+San Isidro
+San Juan de Lurigancho
+San Juan de Miraflores
+San Luis
+San Martín de Porres
+San Miguel
+Santa Anita
+Santa María del Mar
+Santa Rosa
+Santiago de Surco
+Surquillo
+Villa El Salvador
+Villa María del Triunfo
+Bellavista
+La Perla
+La Punta
+Carmen de la Legua-Reynoso
+Ventanilla
+Arequipa
+Alto Selva Alegre
+Cayma
+Cerro Colorado
+Characato
+Chiguata
+Jacobo Hunter
+José Luis Bustamante y Rivero
+Mariano Melgar
+Mollebaya
+Paucarpata
+Pocsi
+Polobaya
+Quequeña
+Sabandía
+Sachaca
+Socabaya
+Tiabaya
+Uchumayo
+Vítor
+Yanahuara
+Yarabamba
+Yura
+La Joya
+Majes
+Camaná
+Mollendo
+Islay
+Dean Valdivia
+Cusco
+San Sebastián
+San Jerónimo
+Santiago
+Wanchaq
+Poroy
+Ccorca
+Pisac
+Calca
+Urubamba
+Ollantaytambo
+Yucay
+Anta
+Chinchero
+Trujillo
+El Porvenir
+Florencia de Mora
+Huanchaco
+La Esperanza
+Laredo
+Moche
+Poroto
+Salaverry
+Simbal
+Víctor Larco Herrera
+Chepén
+Pacasmayo
+Guadalupe
+Chiclayo
+José Leonardo Ortiz
+Pimentel
+Ciudad Eten
+Puerto Eten
+Reque
+Monsefú
+Pomalca
+Picsi
+Tumán
+Chongoyape
+Ferreñafe
+Lambayeque
+Mórrope
+Olmos
+Piura
+Castilla
+Veintiséis de Octubre
+Catacaos
+Cura Mori
+La Arena
+La Unión
+Tambogrande
+Sullana
+Marcavelica
+Miguel Checa
+Querecotillo
+Salitral
+Ignacio Escudero
+Paita
+Amotape
+Arenal
+Colán
+La Huaca
+Vichayal
+Talara
+Pariñas
+El Alto
+La Brea
+Lobitos
+Los Órganos
+Máncora
+Sechura
+Vice
+Bernal
+Huancayo
+El Tambo
+Chilca
+Huancán
+San Agustín de Cajas
+Pilcomayo
+Pucará
+Quilcas
+San Jerónimo de Tunán
+San Pedro de Saño
+Sicaya
+Viques
+Chongos Bajo
+Sapallanga
+Chanchamayo
+Pichanaqui
+Perene
+San Ramón
+San Luis de Shuaro
+Vitoc
+Tarma
+Acobamba
+Huaricolca
+Palca
+Chimbote
+Nuevo Chimbote
+Coishco
+Santa
+Moro
+Nepeña
+Samanco
+Macate
+Casma
+Yaután
+Huaraz
+Jangas
+Olleros
+Pampas
+Taricá
+Caraz
+Yungay
+Puno
+Juliaca
+Caracoto
+Azángaro
+Ilave
+Juli
+Pomata
+Desaguadero
+Yunguyo
+Macusani
+Ayaviri
+Nuñoa
+Santa Lucía
+Putina
+Sandia
+Huancané
+Moho
+Tacna
+Alto de la Alianza
+Ciudad Nueva
+Gregorio Albarracín Lanchipa
+Pocollay
+Calana
+Pachía
+Sama
+La Yarada-Los Palos
+Candarave
+Moquegua
+Samegua
+San Antonio
+Torata
+Ilo
+El Algarrobal
+Pacocha
+Carumas
+Cuchumbaya
+Ica
+La Tinguiña
+Parcona
+San José de Los Molinos
+Subtanjalla
+Chincha Alta
+Alto Larán
+Chavín
+Chincha Baja
+El Carmen
+Grocio Prado
+Pueblo Nuevo
+Sunampe
+Tambo de Mora
+Pisco
+Paracas
+San Andrés
+San Clemente
+Túpac Amaru Inca
+Nazca
+Vista Alegre
+Marcona
+Palpa
+Llipata
+Ayacucho
+Andrés Avelino Cáceres Dorregaray
+Carmen Alto
+Jesús Nazareno
+San Juan Bautista
+Acocro
+Acos Vinchos
+Chiara
+Ocros
+Pacaycasa
+Quinua
+San José de Ticllas
+Santa Ana de Huaycahuacho
+Tambillo
+Abancay
+Tamburco
+Curahuasi
+Huanipaca
+Lambrama
+Pichirhua
+San Pedro de Cachora
+Chalhuanca
+Andahuaylas
+Talavera
+Pacucha
+Huancabamba
+Huancavelica
+Ascensión
+Yauli
+Acobambilla
+Daniel Hernández
+Lircay
+Paucará
+Acoria
+Colcabamba
+Izcuchaca
+Cajamarca
+Baños del Inca
+Jesús
+Llacanora
+Los Baños del Inca
+Matara
+Namora
+Asunción
+Jaén
+Las Pirias
+Pomahuaca
+San José del Alto
+Cutervo
+Chota
+Bambamarca
+Celendín
+Contumazá
+San Ignacio
+Chachapoyas
+La Jalca
+Levanto
+Huancas
+Magdalena
+San Isidro de Maino
+Quinjalca
+Bagua
+Aramango
+Imaza
+La Peca
+Utcubamba
+Cajaruro
+Yamón
+Leymebamba
+Tarapoto
+La Banda de Shilcayo
+Morales
+Moyobamba
+Yantalo
+Soritor
+Rioja
+Nueva Cajamarca
+Juanjuí
+Picota
+Saposoa
+Lamas
+Tabalosos
+Shanao
+Shapaja
+Iquitos
+Belén
+Punchana
+Alto Nanay
+Indiana
+Mazán
+Fernando Lores
+Nauta
+Parinari
+Requena
+Yurimaguas
+Balsapuerto
+Lagunas
+Caballococha
+Yavarí
+Callería
+Yarinacocha
+Manantay
+Campo Verde
+Nueva Requena
+Curimaná
+Padre Abad
+Aguaytía
+Tahuanía
+Iparía
+Masisea
+Atalaya
+Huánuco
+Amarilis
+Pillco Marca
+Santa María del Valle
+Churubamba
+Yacus
+San Pablo de Pillao
+Rupa-Rupa
+José Crespo y Castillo
+Luyando
+Mariano Damaso Beraún
+Aucayacu
+Chaupimarca
+Simón Bolívar
+Yanacancha
+Oxapampa
+Villa Rica
+Pozuzo
+Constitución
+Ticlacayán
+Tinyahuarco
+Tumbes
+Corrales
+La Cruz
+Zarumilla
+Aguas Verdes
+Matapalo
+Papayal
+Canoas de Punta Sal
+Casitas
+Chivay
+Yanque
+Maca
+Cabanaconde
+Achoma
+Tuti
+Tapay
+Sibayo
+Callalli
+Ascope
+Chicama
+Rázuri
+Paiján
+Casa Grande
+Santiago de Cao
+Chocope
+Cartavio
+Virú
+Chao
+Guadalupito
+Motupe
+Salas
+Túcume
+Jayanca
+Pacora
+Paimas
+Ayabaca
+Montero
+Sicchez
+Jilili
+Frias
+Sapillica
+Suyo
+Jauja
+Sausa
+Yauyos (Jauja)
+Concepción
+Mito
+Aco
+Heroínas Toledo
+Ahuac
+Pariacoto
+Pira
+Anta (Carhuaz)
+Carhuaz
+Shilla
+Tinco
+Yungar
+Acora
+Platería
+Capachica
+Coata
+Huata
+Paucarcolla
+Tiquillaca
+Vilque
+Inclán
+Palca (Tacna)
+Tarata
+Ubinas
+Ichuña
+Yunga
+Ocucaje
+Santiago (Ica)
+Los Aquijes
+San Juan de Marcona
+El Ingenio
+Vinchos
+Sancos
+Vilcas Huamán
+Huanta
+Iguain
+Luricocha
+Kishuara
+Kaquiabamba
+Pacobamba
+Huancarama
+Andarapa
+Huayllahuara
+Manta
+Moya
+Cuenca
+San Miguel (Cajamarca)
+Tembladera
+Cajabamba
+San Marcos
+Pedro Gálvez
+José Sabogal
+Hualgayoc
+Bambamarca (Hualgayoc)
+Chugur
+San Pablo
+Bongará
+Jumbilla
+Corosha
+Cuispes
+Nieva
+Condorcanqui
+Santa María de Nieva
+Pongo de Caynarachi
+Barranquita
+San Hilarión
+Pucacaca
+Elías Soplín Vargas
+Caspisapa
+Santa Clara (San Juan)
+Las Amazonas (Punchana)
+Callao

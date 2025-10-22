@@ -1,0 +1,10 @@
+{
+  "n_total": 3000,
+  "splits": {
+    "train": 2100,
+    "val": 450,
+    "test": 450
+  },
+  "noise_pct": 0.0,
+  "seed": 42
+}
