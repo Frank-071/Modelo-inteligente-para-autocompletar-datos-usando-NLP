@@ -1,3 +1,6 @@
+# src/main_train.py
+# Asume corpus CONLL con etiquetas BIO (B-*, I-*, O)
+
 import argparse, os, json, joblib
 from sklearn.metrics import classification_report, f1_score
 from utils.conll import read_conll
@@ -37,4 +40,3 @@ if __name__ == "__main__":
     ap.add_argument("--out",   default="experiments/results/svm_baseline")
     args = ap.parse_args()
     main(args.train, args.val, args.model, args.out)
-

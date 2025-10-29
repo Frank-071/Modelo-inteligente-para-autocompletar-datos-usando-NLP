@@ -1,134 +1,201 @@
 # src/generate_synth.py
-import argparse, random, re, json, csv
+import argparse, random, re, os, json, datetime
 from pathlib import Path
-from datetime import date, timedelta
+
+# --- Tokenizador (solo para alinear BIO con offsets) ---
+try:
+    import spacy
+    nlp = spacy.blank("es")
+except Exception:
+    raise SystemExit("Instala spaCy (requirements.txt) para tokenizar: pip install spacy")
 
 ROOT = Path(__file__).resolve().parents[1]
 LISTS = ROOT / "data_generation_lists"
-OUTDIR_DEFAULT = ROOT / "data"
 
-MESES = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"]
+# ---------- util lectura ----------
+def load_lines(p: Path):
+    if not p.exists():
+        return []
+    with p.open("r", encoding="utf-8") as f:
+        return [ln.strip() for ln in f if ln.strip()]
 
-def read_lines(p): 
-    with open(p, "r", encoding="utf-8") as f:
-        return [x.strip() for x in f if x.strip()]
+def ensure_default_departamentos(lines):
+    if lines:
+        return lines
+    # 24 departamentos del Perú
+    return [
+        "Amazonas","Áncash","Apurímac","Arequipa","Ayacucho","Cajamarca","Cusco","Huancavelica",
+        "Huánuco","Ica","Junín","La Libertad","Lambayeque","Lima","Loreto","Madre de Dios",
+        "Moquegua","Pasco","Piura","Puno","San Martín","Tacna","Tumbes","Ucayali"
+    ]
 
-def load_lists():
-    nombres   = read_lines(LISTS/"nombres.txt")
-    apellidos = read_lines(LISTS/"apellidos.txt")
-    distritos = read_lines(LISTS/"distritos.txt")
-    plantillas= read_lines(LISTS/"plantillas.txt")
-    return nombres, apellidos, distritos, plantillas
+# ---------- generadores de campos ----------
+MESES = ["enero","febrero","marzo","abril","mayo","junio",
+         "julio","agosto","septiembre","octubre","noviembre","diciembre"]
 
-def rand_dni():        return f"{random.randint(10_000_000, 99_999_999)}"
-def rand_telefono():
-    base = f"9{random.randint(10_000_000, 99_999_999)}"
+def gen_fecha():
+    # Rango razonable de nacimiento
+    year = random.randint(1960, 2005)
+    month = random.randint(1, 12)
+    day = random.randint(1, 28)
+    f1 = f"{day:02d}/{month:02d}/{year}"
+    f2 = f"{day:02d}-{month:02d}-{year}"
+    f3 = f"{day} de {MESES[month-1]} de {year}"
+    return random.choice([f1, f2, f3])
+
+def gen_telefono():
+    # celulares PE típicos con variantes
+    core = "9" + "".join(random.choice("0123456789") for _ in range(8))
+    variants = [
+        core,
+        f"+51 {core}",
+        f"+51-{core}",
+        f"+51 {core[:3]} {core[3:6]} {core[6:]}",
+        f"{core[:3]}-{core[3:6]}-{core[6:]}"
+    ]
+    return random.choice(variants)
+
+def gen_direccion():
+    vias = ["Av.", "Avenida", "Jr.", "Jirón", "Calle", "Psje.", "Pasaje", "Mz", "Mz.", "Block"]
+    nombres = ["Los Olivos","San Martín","Primavera","El Sol","Los Pinos","España","Bolívar","Arequipa",
+               "Progreso","Libertad","Petroperú","Los Laureles","Industrial"]
+    num = random.randint(10, 9999)
+    extra = random.choice([
+        "", f" dpto. {random.randint(101, 120)}", f" piso {random.randint(2, 15)}",
+        f" Mz {random.randint(1, 25)} Lt {random.randint(1, 30)}"
+    ])
+    return f"{random.choice(vias)} {random.choice(nombres)} {num}{extra}".strip()
+
+def gen_dni():
+    """Genera un DNI en 8 dígitos con algunas variantes de formato."""
+    d = "".join(random.choice("0123456789") for _ in range(8))
     r = random.random()
-    if r < 0.2:  return f"+51 {base}"
-    if r < 0.35: return f"{base[:3]} {base[3:6]} {base[6:]}"
-    if r < 0.5:  return f"+51-{base}"
-    return base
-def rand_fecha_nac():
-    start, end = date(1965,1,1), date(2007,12,31)
-    d = start + timedelta(days=random.randint(0,(end-start).days))
-    r = random.random()
-    if r < 0.5:  return d.strftime("%d/%m/%Y")
-    if r < 0.75: return d.strftime("%d-%m-%Y")
-    return f"{d.day} de {MESES[d.month-1]} del {d.year}"
-def rand_direccion():
-    vias = ["Av.","Jr.","Calle","Psje.","Urb."]
-    nombres = ["Arequipa","San Martín","Los Álamos","Progreso","Brasil","La Unión","Primavera",
-               "Grau","Bolívar","La Paz","Bolognesi","Libertad","Los Olivos"]
-    suf = ["", f"Depto {random.randint(101,504)}", f"Interior {random.randint(1,20)}",
-           f"Mz {random.choice('ABCDEFG')}", f"Lt {random.randint(1,30)}", ""]
-    return f"{random.choice(vias)} {random.choice(nombres)} {random.randint(100,9999)}" + (f" {random.choice(suf)}" if random.random()<0.5 else "")
-def rand_apellidos(apells):
-    a1 = random.choice(apells)
-    if random.random() < 0.85:
-        a2 = random.choice(apells)
-        return f"{a1}-{a2}" if random.random()<0.10 else f"{a1} {a2}"
-    return a1
-def rand_nombres(noms):
-    n = random.choice(noms)
-    if " " in n or random.random()>0.75: return n
-    return f"{n} {random.choice(noms)}" if random.random()<0.25 else n
+    if r < 0.50:  # 50% compacto
+        return d                      # 12345678
+    if r < 0.65:
+        return f"{d[:4]}-{d[4:]}"     # 1234-5678
+    if r < 0.80:
+        return f"{d[:4]} {d[4:]}"     # 1234 5678
+    if r < 0.90:
+        return f"{d[:2]}-{d[2:4]}-{d[4:6]}-{d[6:]}"  # 12-34-56-78
+    return f"{d[:2]} {d[2:5]} {d[5:]}"              # 12 345 678
 
-_tok_re = re.compile(r"\d+|[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[^\w\s]", re.UNICODE)
-def tokenize_with_spans(text):
-    toks, spans = [], []
-    for m in _tok_re.finditer(text):
-        toks.append(m.group(0)); spans.append((m.start(), m.end()))
-    return toks, spans
-def find_span(text, value):
-    i = text.find(value);  return None if i==-1 else (i, i+len(value))
-def to_bio(text, values):
-    tokens, spans = tokenize_with_spans(text)
-    labels = ["O"] * len(tokens)
+# ---------- render + BIO ----------
+PLACEHOLDER_RE = re.compile(r"\{([A-Z_]+)\}")
 
-    for k, v in values.items():
-        # Ubica el span de la entidad en el texto ya formateado
-        i = text.find(v)
-        if i == -1:
-            continue
-        a, b = i, i + len(v)
+def render_with_spans(template: str, values: dict):
+    """
+    Devuelve texto y spans exactos {label: [(start, end)]} para cada placeholder,
+    resolviendo posiciones durante el render (sin búsquedas ambiguas).
+    """
+    out = []
+    spans = {k: [] for k in values.keys()}
+    i = 0
+    pos = 0
+    while i < len(template):
+        m = PLACEHOLDER_RE.search(template, i)
+        if not m:
+            lit = template[i:]
+            out.append(lit); pos += len(lit)
+            break
+        # literal previo
+        lit = template[i:m.start()]
+        out.append(lit); pos += len(lit)
+        key = m.group(1)
+        val_str = str(values.get(key, f"{{{key}}}"))
+        start = pos
+        out.append(val_str)
+        pos += len(val_str)
+        spans.setdefault(key, []).append((start, pos))
+        i = m.end()
+    text = "".join(out)
+    return text, spans
 
-        started = False
-        for ti, (s, e) in enumerate(spans):
-            if e <= a or s >= b:
-                continue
-            # el primer token de este span -> B-; los siguientes -> I-
-            labels[ti] = ("B-" + k) if not started else ("I-" + k)
-            started = True
+def to_bio(text, spans_by_label):
+    doc = nlp(text)
+    labels = ["O"] * len(doc)
+    # a cada span asigna B-/I- con el mismo nombre del placeholder
+    for label, spans in spans_by_label.items():
+        for (s, e) in spans:
+            for i, tok in enumerate(doc):
+                if tok.idx >= s and tok.idx + len(tok.text) <= e:
+                    prefix = "B" if tok.idx == s else "I"
+                    labels[i] = f"{prefix}-{label}"
+    return doc, labels
 
-    return tokens, labels
+# ---------- pipeline ----------
+def synth_one(nombres, apellidos, distritos, departamentos, plantilla):
+    v = {
+        "NOMBRES":      random.choice(nombres),
+        "APELLIDOS":    random.choice(apellidos),
+        "DNI":          gen_dni(),
+        "FECHA_NAC":    gen_fecha(),
+        "TELEFONO":     gen_telefono(),
+        "DEPARTAMENTO": random.choice(departamentos),
+        "DISTRITO":     random.choice(distritos),
+        "DIRECCION":    gen_direccion()
+    }
+    text, spans = render_with_spans(plantilla, v)
+    doc, y = to_bio(text, spans)
+    tokens = [t.text for t in doc]
+    return tokens, y
+
+def write_conll(path: Path, examples):
+    with path.open("w", encoding="utf-8") as f:
+        for toks, tags in examples:
+            for t, y in zip(toks, tags):
+                f.write(f"{t}\t{y}\n")
+            f.write("\n")
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--n", type=int, default=6000)
-    ap.add_argument("--split", type=str, default="0.8,0.1,0.1")
-    ap.add_argument("--out-dir", type=str, default=str(OUTDIR_DEFAULT))
+    ap.add_argument("--n", type=int, required=True)
+    ap.add_argument("--out-dir", type=str, default="data")
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--split-train", type=float, default=0.8)
+    ap.add_argument("--split-val", type=float, default=0.1)
     args = ap.parse_args()
 
     random.seed(args.seed)
-    outdir = Path(args.out_dir); outdir.mkdir(parents=True, exist_ok=True)
 
-    nombres, apellidos, distritos, plantillas = load_lists()
-    records = []
+    nombres       = load_lines(LISTS / "nombres.txt")
+    apellidos     = load_lines(LISTS / "apellidos.txt")
+    distritos     = load_lines(LISTS / "distritos.txt")
+    departamentos = ensure_default_departamentos(load_lines(LISTS / "departamentos.txt"))
+    plantillas    = load_lines(LISTS / "plantillas.txt")
+
+    if not (nombres and apellidos and distritos and plantillas):
+        raise SystemExit("Faltan listas (nombres/apellidos/distritos/plantillas). Revisa data_generation_lists/")
+
+    out_dir = ROOT / args.out_dir
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    examples = []
     for _ in range(args.n):
-        vals = {
-            "NOMBRES":   rand_nombres(nombres),
-            "APELLIDOS": rand_apellidos(apellidos),
-            "TIPO_DOC":  "DNI",
-            "DNI":       rand_dni(),
-            "FECHA_NAC": rand_fecha_nac(),
-            "TELEFONO":  rand_telefono(),
-            "DISTRITO":  random.choice(distritos),
-            "DIRECCION": rand_direccion(),
-        }
-        text = random.choice(plantillas).format(**vals)
-        toks, labs = to_bio(text, vals)
-        records.append((toks,labs,text,vals))
+        tpl = random.choice(plantillas)
+        examples.append(synth_one(nombres, apellidos, distritos, departamentos, tpl))
 
-    p_tr, p_va, p_te = [float(x) for x in args.split.split(",")]
-    n = len(records); n_tr = int(n*p_tr); n_va = int(n*p_va)
-    splits = [("train.conll", records[:n_tr]),
-              ("val.conll",   records[n_tr:n_tr+n_va]),
-              ("test.conll",  records[n_tr+n_va:])]
+    random.shuffle(examples)
+    n = len(examples)
+    n_train = int(n * args.split_train)
+    n_val = int(n * args.split_val)
+    train = examples[:n_train]
+    val   = examples[n_train:n_train + n_val]
+    test  = examples[n_train + n_val:]
 
-    for fname,items in splits:
-        with open(outdir/fname, "w", encoding="utf-8") as f:
-            for toks,labs,_,_ in items:
-                for t,y in zip(toks,labs): f.write(f"{t}\t{y}\n")
-                f.write("\n")
+    write_conll(out_dir / "train.conll", train)
+    write_conll(out_dir / "val.conll",   val)
+    write_conll(out_dir / "test.conll",  test)
 
-    # muestrita para debug
-    with open(outdir/"sample_train.csv","w",encoding="utf-8",newline="") as f:
-        w=csv.writer(f); w.writerow(["text","values_json"])
-        for toks,labs,text,vals in records[:200]:
-            w.writerow([text, json.dumps(vals, ensure_ascii=False)])
+    meta = {
+        "n_total": n, "n_train": len(train), "n_val": len(val), "n_test": len(test),
+        "seed": args.seed, "timestamp": datetime.datetime.now().isoformat()
+    }
+    with (out_dir / "synth_metadata.json").open("w", encoding="utf-8") as f:
+        json.dump(meta, f, ensure_ascii=False, indent=2)
 
-    print("[OK] train/val/test creados en", outdir)
+    print(f"✅ Generado: {out_dir}/train.conll ({len(train)}), val ({len(val)}), test ({len(test)})")
 
 if __name__ == "__main__":
     main()
+
