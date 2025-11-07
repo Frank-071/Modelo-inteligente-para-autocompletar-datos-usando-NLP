@@ -1,42 +1,145 @@
+
 # src/main_train.py
-# Asume corpus CONLL con etiquetas BIO (B-*, I-*, O)
+# Entrenamiento NER BIO para varios experimentos.
 
-import argparse, os, json, joblib
+import argparse
+import os
+import json
+import joblib
+
 from sklearn.metrics import classification_report, f1_score
-from utils.conll import read_conll
-from ner.svm_baseline import featurize, make_pipeline
 
-def main(train_path, val_path, model_path, results_dir):
+from utils.conll import read_conll  # ajusta ruta si tu lector está en otro lado
+
+from ner import svm_baseline as sb
+from ner.models import make_svm_simple, make_mlp
+from features import simple as feat_simple
+from features import pos as feat_pos
+from features import pos_emb as feat_pos_emb
+
+
+EXPERIMENTS = {
+    # Exp 1: solo rasgos simples + SVM clásico
+    "exp1_svm_simple": {
+        "feature_fn": feat_simple.featurize,
+        "model_fn": make_svm_simple,
+        "default_model_path": "models/exp1_svm_simple.pkl",
+        "description": "SVM con features simples (forma + contexto).",
+    },
+    # Exp 2: rasgos simples + POS + SVM clásico
+    "exp2_svm_pos": {
+        "feature_fn": feat_pos.featurize,
+        "model_fn": make_svm_simple,
+        "default_model_path": "models/exp2_svm_pos.pkl",
+        "description": "SVM con features simples + POS.",
+    },
+    # Exp 3: versión PRO: rasgos + POS + embeddings proyectados + SVM avanzado
+    "exp3_svm_pos_emb_pro": {
+        "feature_fn": feat_pos_emb.featurize,     # llama a svm_baseline.featurize
+        "model_fn": sb.make_pipeline,             # usa tu pipeline pro
+        "default_model_path": "models/exp3_svm_pos_emb_pro.pkl",
+        "description": "SVM PRO con simples + POS + embeddings proyectados.",
+    },
+    # Exp 4: mismos features PRO pero modelo MLP
+    "exp4_mlp_pos_emb_pro": {
+        "feature_fn": feat_pos_emb.featurize,     # mismos features pro
+        "model_fn": make_mlp,                    # cambiamos solo el clasificador
+        "default_model_path": "models/exp4_mlp_pos_emb_pro.pkl",
+        "description": "MLP con simples + POS + embeddings proyectados.",
+    },
+}
+
+
+def parse_args():
+    p = argparse.ArgumentParser(
+        description="Entrenamiento NER BIO para distintos experimentos."
+    )
+    p.add_argument("--train", required=True, help="Ruta a train.conll")
+    p.add_argument("--val", required=True, help="Ruta a val.conll")
+    p.add_argument(
+        "--exp",
+        required=True,
+        choices=EXPERIMENTS.keys(),
+        help="Nombre del experimento a ejecutar.",
+    )
+    p.add_argument(
+        "--model",
+        default=None,
+        help="Ruta para guardar el modelo (.pkl). Si no se da, usa la default del experimento.",
+    )
+    p.add_argument(
+        "--out",
+        required=True,
+        help="Directorio donde guardar métricas y reportes.",
+    )
+    return p.parse_args()
+
+
+def main():
+    args = parse_args()
+    cfg = EXPERIMENTS[args.exp]
+
+    feature_fn = cfg["feature_fn"]
+    model_fn = cfg["model_fn"]
+
+    model_path = args.model if args.model else cfg["default_model_path"]
+    out_dir = args.out
+
     os.makedirs(os.path.dirname(model_path), exist_ok=True)
-    os.makedirs(results_dir, exist_ok=True)
+    os.makedirs(out_dir, exist_ok=True)
 
-    train_sents = read_conll(train_path)
-    val_sents   = read_conll(val_path)
+    print(f"[INFO] Experimento: {args.exp}")
+    print(f"[INFO] {cfg['description']}")
+    print(f"[INFO] Cargando train: {args.train}")
+    print(f"[INFO] Cargando val: {args.val}")
 
-    Xtr, ytr = featurize(train_sents)
-    Xva, yva = featurize(val_sents)
+    train_sents = read_conll(args.train)
+    val_sents = read_conll(args.val)
 
-    pipe = make_pipeline()
-    pipe.fit(Xtr, ytr)
+    print(f"[INFO] Generando features (train)...")
+    X_train, y_train = feature_fn(train_sents)
 
-    yhat = pipe.predict(Xva)
-    report = classification_report(yva, yhat, output_dict=True, zero_division=0)
-    f1_macro = f1_score(yva, yhat, average="macro", zero_division=0)
+    print(f"[INFO] Generando features (val)...")
+    X_val, y_val = feature_fn(val_sents)
 
-    joblib.dump(pipe, model_path)
-    with open(os.path.join(results_dir, "val_report.json"), "w", encoding="utf-8") as f:
-        json.dump(report, f, ensure_ascii=False, indent=2)
-    with open(os.path.join(results_dir, "val_metrics.json"), "w", encoding="utf-8") as f:
-        json.dump({"f1_macro": f1_macro}, f, ensure_ascii=False, indent=2)
+    print(f"[INFO] Creando modelo...")
+    model = model_fn()
 
-    print(f"[OK] Modelo guardado en: {model_path}")
-    print(f"[OK] F1 macro (val): {f1_macro:.4f}")
+    print(f"[INFO] Entrenando...")
+    model.fit(X_train, y_train)
+
+    print(f"[INFO] Evaluando en validación...")
+    y_pred = model.predict(X_val)
+
+    f1_macro = f1_score(y_val, y_pred, average="macro")
+    report_dict = classification_report(y_val, y_pred, output_dict=True)
+    report_txt = classification_report(y_val, y_pred)
+
+    print(f"[INFO] F1-macro (val): {f1_macro:.4f}")
+
+    # Guardar modelo
+    joblib.dump(model, model_path)
+    print(f"[INFO] Modelo guardado en {model_path}")
+
+    # Guardar métricas
+    metrics = {
+        "experiment": args.exp,
+        "description": cfg["description"],
+        "f1_macro_val": f1_macro,
+    }
+    with open(os.path.join(out_dir, "metrics.json"), "w", encoding="utf-8") as f:
+        json.dump(metrics, f, indent=2, ensure_ascii=False)
+
+    with open(os.path.join(out_dir, "classification_report.json"), "w", encoding="utf-8") as f:
+        json.dump(report_dict, f, indent=2, ensure_ascii=False)
+
+    with open(os.path.join(out_dir, "classification_report.txt"), "w", encoding="utf-8") as f:
+        f.write(report_txt)
+
+    print(f"[INFO] Resultados guardados en {out_dir}")
+    print("[INFO] Listo.")
+
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--train", default="data/train.conll")
-    ap.add_argument("--val",   default="data/val.conll")
-    ap.add_argument("--model", default="models/svm_baseline.pkl")
-    ap.add_argument("--out",   default="experiments/results/svm_baseline")
-    args = ap.parse_args()
-    main(args.train, args.val, args.model, args.out)
+    main()
+

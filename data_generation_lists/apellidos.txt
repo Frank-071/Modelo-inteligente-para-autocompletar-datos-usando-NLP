@@ -1,4 +1,6 @@
 Galindo
+Muroya
+Villanueva
 Fernández
 Peña
 Bravo
@@ -201,7 +203,6 @@ Shuna
 Santibáñez
 Quispehuanca
 Choquehuanca
-Santos
 Valdez
 Nieto
 Campos
@@ -514,7 +515,7 @@ Ortega
 Palacios
 Ibarra
 Pacheco
-Sandoval
+Sandobal
 Montoya
 Vargas
 Rodríguez
@@ -568,7 +569,6 @@ Salgado
 Salazar
 Mayta
 Franco
-Sandoval
 Matos
 Silva
 Munoz
@@ -597,7 +597,7 @@ Castaneda
 Ulloa
 Marin
 Pena
-Gonzales
+Gonzáles
 Yucra
 Cruz
 Miranda
@@ -881,7 +881,7 @@ Navarro
 Arias
 Montoya
 Montoya
-Gonzales
+Gonzalez
 Rivas
 Yáñez
 Jiménez
@@ -1499,3 +1499,103 @@ Ttito
 Manzo
 Panaifo
 Arirama
+Huamaní
+Tito
+Condori Mamani
+Apaza
+Churata
+Ccasa
+Ccama
+Cusihuamán
+Pillco
+Huayta
+Ccopa Huamán
+Inga
+Suta
+Rojas Huamaní
+Palacios Huamán
+Catacora
+Quispe Mamani
+Cutipa Mamani
+Quispe Ccama
+Quispe Huamán
+Palomino Huamán
+Quispe Callo
+Mamani Quispe
+Choquehuanca Quispe
+Huamán Quispe
+Huanca Quispe
+Churata Mamani
+Choque Mamani
+Quispe Tito
+Huacachi
+Ccollatupa
+Ccente
+Cusi
+Sacsara
+Quispe Sacsara
+Paucara Huamán
+Yupanqui
+Sacsara Quispe
+Quispe Huayta
+Quispe Puma
+Puma Quispe
+Ccori
+Paucara Quispe
+Vilca
+Vilcapoma
+Huayhuas
+Chumbes
+Quispe Huallpa
+Sullca Quispe
+Quispe Sullca
+Camones
+Villarán
+Velásquez
+Silupu
+Lescano
+Cabrejos
+Del Carpio
+Alva
+Rioja
+Vigo
+Bejarano
+Bartra
+Bustamante
+Valcárcel
+Iparraguirre
+Salomón
+Barrenechea
+Oré
+Velarde
+Salaverry
+Benavides
+Mazzetti
+Astete
+Bellido
+Cabada
+Cerna Bazán
+Espino
+Portocarrero
+Zorrilla
+Begazo
+Tisoc
+Pache
+Carranza
+Rebatta
+Monzón
+Valdivieso
+Pachas
+Aguilar Huamán
+Salinas Huamán
+Rojas Quispe
+Medrano
+Tueros
+Palomino Quispe
+Valencia Quispe
+Cabello
+Huayllani
+Galvez
+Lumbreras
+Huarcaya
+Alarcón

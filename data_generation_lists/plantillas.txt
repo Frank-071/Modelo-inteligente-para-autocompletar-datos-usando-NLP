@@ -98,3 +98,7 @@ Mi nombre es {NOMBRES} {APELLIDOS}; estoy identificado con DNI {DNI}; nací el {
 Me llamo {NOMBRES} {APELLIDOS}; DNI número {DNI}; nací el {FECHA_NAC}; mi teléfono es {TELEFONO}; y tengo domicilio en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
 Soy {NOMBRES} {APELLIDOS}; documento de identidad {DNI}; fecha de nacimiento {FECHA_NAC}; celular de contacto {TELEFONO}; lugar de residencia {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
 Mis nombres son {NOMBRES}, mis apellidos son {APELLIDOS}; cuento con DNI {DNI}; nací el {FECHA_NAC}; mi número telefónico es {TELEFONO}; y vivo actualmente en {DIRECCION}, en {DISTRITO}, {DEPARTAMENTO}.
+A continuación detallo mis datos: {NOMBRES} {APELLIDOS}; DNI {DNI}; fecha de nacimiento {FECHA_NAC}; número de contacto {TELEFONO}; dirección {DIRECCION}, en el distrito {DISTRITO}, departamento {DEPARTAMENTO}.
+Yo soy {NOMBRES} {APELLIDOS}, portador del DNI {DNI}; fecha de nacimiento {FECHA_NAC}; teléfono {TELEFONO}; mi domicilio actual está en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
+Hola, me presento: {NOMBRES} {APELLIDOS}, con DNI {DNI}; nací el {FECHA_NAC}; mi teléfono es {TELEFONO}; y mi residencia se encuentra en {DIRECCION}, en {DISTRITO}, en el departamento de {DEPARTAMENTO}.
+Indico mis datos personales: nombre completo {NOMBRES} {APELLIDOS}; DNI {DNI}; fecha de nacimiento {FECHA_NAC}; celular {TELEFONO}; domicilio ubicado en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
