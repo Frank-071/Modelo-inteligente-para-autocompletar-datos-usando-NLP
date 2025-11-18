@@ -3,6 +3,7 @@ Hola, mi nombre es {NOMBRES} {APELLIDOS}, mi DNI es {DNI}, nací el {FECHA_NAC},
 Hola, mi nombre es {NOMBRES} y mis apellidos {APELLIDOS}, mi DNI es {DNI}, nací el {FECHA_NAC}, mi celular es {TELEFONO}, y vivo en {DIRECCION}, {DISTRITO} en {DEPARTAMENTO}.
 Hola, soy {NOMBRES} {APELLIDOS}, mi DNI es {DNI}, nací el {FECHA_NAC}, mi celular es {TELEFONO}, y vivo en {DEPARTAMENTO}, {DISTRITO}, {DIRECCION}.
 Soy {NOMBRES} {APELLIDOS}, mi documento de identidad es {DNI}, mi fecha de nacimiento es {FECHA_NAC}, mi número de celular es {TELEFONO}, y mi domicilio es {DIRECCION}, en {DISTRITO}, {DEPARTAMENTO}.
+Soy {NOMBRES} {APELLIDOS}, mi DNI es {DNI}, nací el {FECHA_NAC}, mi celular es {TELEFONO} y vivo en {DEPARTAMENTO}, {DISTRITO}.
 Mis nombres son {NOMBRES} y mis apellidos son {APELLIDOS}, mi número de documento es {DNI}, nací el {FECHA_NAC}, mi celular es {TELEFONO}, y vivo en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
 ¿Qué tal?, me llamo {NOMBRES} {APELLIDOS}, mi DNI es el {DNI}, nací el {FECHA_NAC}, mi teléfono de contacto es {TELEFONO}, y resido en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
 Yo, {NOMBRES} {APELLIDOS}, identificado con DNI número {DNI}, nacido el {FECHA_NAC}, con celular {TELEFONO}, declaro vivir en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
@@ -102,3 +103,14 @@ A continuación detallo mis datos: {NOMBRES} {APELLIDOS}; DNI {DNI}; fecha de na
 Yo soy {NOMBRES} {APELLIDOS}, portador del DNI {DNI}; fecha de nacimiento {FECHA_NAC}; teléfono {TELEFONO}; mi domicilio actual está en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
 Hola, me presento: {NOMBRES} {APELLIDOS}, con DNI {DNI}; nací el {FECHA_NAC}; mi teléfono es {TELEFONO}; y mi residencia se encuentra en {DIRECCION}, en {DISTRITO}, en el departamento de {DEPARTAMENTO}.
 Indico mis datos personales: nombre completo {NOMBRES} {APELLIDOS}; DNI {DNI}; fecha de nacimiento {FECHA_NAC}; celular {TELEFONO}; domicilio ubicado en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
+A ver, te dicto: me llamo {NOMBRES} {APELLIDOS}, vivo en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}, mi DNI es {DNI}, nací el {FECHA_NAC} y mi celular es {TELEFONO}.
+Eh… mis datos para el formulario son: DNI {DNI}, nombre {NOMBRES} {APELLIDOS}, fecha de nacimiento {FECHA_NAC}, teléfono {TELEFONO} y dirección {DIRECCION}, en el distrito de {DISTRITO}, {DEPARTAMENTO}.
+Primero mi nombre, soy {NOMBRES} {APELLIDOS}; luego mi dirección {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}; mi DNI es {DNI}, nací el {FECHA_NAC} y mi número es {TELEFONO}.
+Creo que ya lo había dicho, pero igual: me llamo {NOMBRES} {APELLIDOS}, con DNI {DNI}, nací el {FECHA_NAC}, mi celular {TELEFONO} y vivo en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
+Para que lo registres, anota: {NOMBRES} {APELLIDOS}, DNI {DNI}, teléfono {TELEFONO}, vivo en {DIRECCION}, distrito {DISTRITO}, departamento {DEPARTAMENTO}, y mi fecha de nacimiento es {FECHA_NAC}.
+Mis datos completos son los siguientes: {NOMBRES} {APELLIDOS}, con documento {DNI}, nacido el {FECHA_NAC}, número de celular {TELEFONO} y domicilio en {DIRECCION}, en {DISTRITO}, {DEPARTAMENTO}.
+Ya, empecemos: DNI {DNI}, nombre {NOMBRES} {APELLIDOS}, nací el {FECHA_NAC}, mi celular es {TELEFONO} y actualmente vivo en {DIRECCION}, {DISTRITO}, {DEPARTAMENTO}.
+Te paso mi información personal: me llamo {NOMBRES} {APELLIDOS}, mi fecha de nacimiento es {FECHA_NAC}, mi DNI {DNI}, mi teléfono {TELEFONO} y la dirección es {DIRECCION}, en el distrito de {DISTRITO}, {DEPARTAMENTO}.
+Mis datos son estos: nombre {NOMBRES} {APELLIDOS}, documento {DNI}, nací el {FECHA_NAC}, mi celular es {TELEFONO} y vivo en {DIRECCION}, en {DISTRITO}, en el departamento de {DEPARTAMENTO}.
+Mi número de celular es {TELEFONO} y me llamo {NOMBRES} {APELLIDOS}.
+Buenos días, me llamo {NOMBRES} {APELLIDOS}, mi dni es {DNI} y nací el {FECHA_NAC}.

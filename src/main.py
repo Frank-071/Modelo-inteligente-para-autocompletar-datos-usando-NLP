@@ -15,18 +15,28 @@ for p in (str(ROOT), str(SRC)):
     if p not in sys.path:
         sys.path.insert(0, p)
 
-from ner.svm_baseline import featurize  # mismas features que en train
+from features import simple as feat_simple
+from features import pos as feat_pos
+from features import pos_emb as feat_pos_emb
 warnings.filterwarnings("ignore", r"pkg_resources is deprecated", category=UserWarning)
 from faster_whisper import WhisperModel
+
+EXPERIMENTS = {
+    "exp1_svm_simple": feat_simple.featurize,
+    "exp2_svm_pos": feat_pos.featurize,
+    "exp3_svm_pos_emb_pro": feat_pos_emb.featurize,  # usa svm_baseline por dentro
+    "exp4_mlp_pos_emb_pro": feat_pos_emb.featurize,
+}
+
 
 # ---------- tokenización ----------
 TOK_RE = re.compile(r"\d+|[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]+|[^\w\s]", re.UNICODE)
 def tokenize(text: str):
     return [m.group(0) for m in TOK_RE.finditer(text)]
 
-def featurize_tokens(tokens):
+def featurize_tokens(tokens, feature_fn):
     sents = [[(t, "O") for t in tokens]]
-    X_flat, _ = featurize(sents)
+    X_flat, _ = feature_fn(sents)
     return X_flat
 
 # ---------- util numéricas ----------
@@ -112,21 +122,29 @@ def _extract_name_block(text: str):
         return " ".join(w.capitalize() if w.lower() not in keep else w.lower() for w in s.split())
     return cap(noms), cap(apes) if apes else None
 
-def _guess_distrito_departamento(text: str, ent):
-    """
-    Si hay un distrito de Lima mencionado, úsalo; si el texto menciona Lima, setea DEPARTAMENTO.
-    """
+def _guess_distrito_departamento(text: str, ent: dict) -> dict:
     low = text.lower()
+
+    # Si ya hay DEPARTAMENTO vacío y aparece "lima"
     if "lima" in low and not ent.get("DEPARTAMENTO"):
         ent["DEPARTAMENTO"] = "Lima"
-    if not ent.get("DISTRITO"):
-        for d in LIMA_DISTRICTS:
-            if re.search(rf"\b{re.escape(d)}\b", text, re.IGNORECASE):
-                ent["DISTRITO"] = d
-                if not ent.get("DEPARTAMENTO"):
-                    ent["DEPARTAMENTO"] = "Lima"
-                break
+
+    # Buscar un distrito válido en el texto
+    found_valid = None
+    for d in LIMA_DISTRICTS:
+        if re.search(rf"\b{re.escape(d)}\b", text, re.IGNORECASE):
+            found_valid = d
+            break
+
+    # Si no hay DISTRITO o el que hay no es válido, usa el encontrado
+    if found_valid:
+        if ent.get("DISTRITO") not in LIMA_DISTRICTS:
+            ent["DISTRITO"] = found_valid
+        if not ent.get("DEPARTAMENTO"):
+            ent["DEPARTAMENTO"] = "Lima"
+
     return ent
+
 
 def bio_to_spans(tokens, labels):
     spans = []
@@ -293,33 +311,52 @@ def main():
     ap.add_argument("--silence_thr", type=float, default=0.015)
     ap.add_argument("--max_seconds", type=int, default=30)
     ap.add_argument("--out_wav", default="audio/capture.wav")
+    ap.add_argument(
+        "--exp",
+        required=True,
+        choices=["exp1_svm_simple", "exp2_svm_pos", "exp3_svm_pos_emb_pro", "exp4_mlp_pos_emb_pro"],
+        help="Experimento usado para entrenar el modelo (define el featurizer).",
+    )
+    ap.add_argument(
+        "--text",
+        default=None,
+        help="Texto manual para probar el modelo (salta la parte de audio/Whisper).",
+    )
     args = ap.parse_args()
+    # elegir el featurizer según el experimento
+    feature_fn = EXPERIMENTS[args.exp]
 
     model_path = Path(args.model)
     if not model_path.exists():
         print(f"[ERROR] No existe el modelo: {model_path}")
         sys.exit(1)
 
-    out_wav = Path(args.out_wav)
-    out_wav.parent.mkdir(parents=True, exist_ok=True)
+    if args.text:
+        text = args.text
+        print("=== Texto manual ===")
+        print(text)
 
-    audio = record_until_silence(
-        silence_ms=args.silence_ms, silence_thr=args.silence_thr, max_seconds=args.max_seconds
-    )
-    if audio.size == 0:
-        print("[WARN] No se capturó audio.")
-        sys.exit(0)
-    save_wav(out_wav, audio, 16000)
-    print(f"[OK] Audio guardado en: {out_wav}")
+    else:
+        out_wav = Path(args.out_wav)
+        out_wav.parent.mkdir(parents=True, exist_ok=True)
 
-    print("[STT] Transcribiendo…")
-    text = transcribe(out_wav, whisper_size=args.whisper_size, device=args.device)
-    print("=== Transcripción ===")
-    print(text if text else "(vacío)")
+        audio = record_until_silence(
+            silence_ms=args.silence_ms, silence_thr=args.silence_thr, max_seconds=args.max_seconds
+        )
+        if audio.size == 0:
+            print("[WARN] No se capturó audio.")
+            sys.exit(0)
+        save_wav(out_wav, audio, 16000)
+        print(f"[OK] Audio guardado en: {out_wav}")
+
+        print("[STT] Transcribiendo…")
+        text = transcribe(out_wav, whisper_size=args.whisper_size, device=args.device)
+        print("=== Transcripción ===")
+        print(text if text else "(vacío)")
 
     pipe = joblib.load(model_path)
     tokens = tokenize(text)
-    X = featurize_tokens(tokens)
+    X = featurize_tokens(tokens, feature_fn)
     y_pred = pipe.predict(X)
 
     spans = bio_to_spans(tokens, y_pred)
