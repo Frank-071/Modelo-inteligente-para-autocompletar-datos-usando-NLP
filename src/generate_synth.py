@@ -14,7 +14,6 @@ except Exception:
 ROOT = Path(__file__).resolve().parents[1]
 LISTS = ROOT / "data_generation_lists"
 
-# ---------- util lectura ----------
 def load_lines(p: Path):
     if not p.exists():
         return []
@@ -22,7 +21,6 @@ def load_lines(p: Path):
         return [ln.strip() for ln in f if ln.strip()]
 
 def ensure_default_departamentos(lines):
-    # si ya hay un departamentos.txt úsalo; si no, mete los 24 dptos
     if lines:
         return lines
     return [
@@ -46,8 +44,6 @@ def gen_fecha():
     f1 = f"{day:02d}/{month:02d}/{year}"
     f2 = f"{day:02d}-{month:02d}-{year}"
     f3 = f"{day} de {MESES[month-1]} del {year}"
-    # OJO: acá puse "del" en vez de "de" para parecer más real (tú hablas así)
-    # eso ayuda a que el modelo reconozca tu manera de hablar.
     return random.choice([f1, f2, f3])
 
 def gen_telefono():
@@ -63,7 +59,6 @@ def gen_telefono():
     return random.choice(variants)
 
 def _gen_direccion_calle():
-    # estilo "Av. Los Olivos 1234 dpto. 203"
     vias = ["Av.", "Avenida", "Jr.", "Jirón", "Calle", "Psje.", "Pasaje"]
     nombres = [
         "Los Olivos","San Martín","Primavera","El Sol","Los Pinos","España",
@@ -81,10 +76,7 @@ def _gen_direccion_calle():
     return f"{random.choice(vias)} {random.choice(nombres)} {num}{extra}".strip()
 
 def _gen_direccion_manzana_lote():
-    # estilo condominio/asentamiento que tú dices al hablar
     # ejemplos que queremos que el modelo aprenda como DIRECCION, NO DISTRITO:
-    # "Manzana G Lote 19"
-    # "Mz G Lt 19"
     # "Manzana J Lote 24 Los Nogales"
     manzana_label = random.choice(["Manzana", "Mz", "Mz."])
     letra = random.choice(list("ABCDEFGHJKLMNPRSTUVWX"))  # sin O para no confundir con 0
@@ -123,7 +115,6 @@ def gen_dni():
     1234-5678
     12-34-56-78
     etc.
-    Esto es importante porque tú hablas el DNI con pausas/guiones.
     """
     base = "".join(random.choice("0123456789") for _ in range(8))
     r = random.random()
@@ -144,8 +135,6 @@ def render_with_spans(template: str, values: dict):
     """
     Devuelve:
     - text final con todos los placeholders reemplazados
-    - spans[label] = [(start,end), ...] ubicaciones de cada campo
-    Esto permite etiquetar BIO sin tener que buscar cadenas luego.
     """
     out_chunks = []
     spans = {k: [] for k in values.keys()}
@@ -160,7 +149,6 @@ def render_with_spans(template: str, values: dict):
             pos += len(lit)
             break
 
-        # literal antes del placeholder
         lit = template[i:m.start()]
         out_chunks.append(lit)
         pos += len(lit)
@@ -178,10 +166,9 @@ def render_with_spans(template: str, values: dict):
     return text, spans
 
 def to_bio(text, spans_by_label):
-    """
-    Toma el texto final y los spans exactos,
-    tokeniza con spaCy y asigna B-<LABEL>/I-<LABEL>/O token por token.
-    """
+    
+    #tokeniza con spaCy y asigna B-<LABEL>/I-<LABEL>/O token por token.
+
     doc = nlp(text)
     labels = ["O"] * len(doc)
 

@@ -10,14 +10,11 @@ def _get_nlp():
     if _nlp is None:
         try:
             import spacy
-            # Ideal: instalar modelo mediano de español
-            # python -m spacy download es_core_news_md
             try:
                 _nlp = spacy.load("es_core_news_md")
             except Exception:
                 _nlp = spacy.load("es_core_news_sm")
         except Exception:
-            # Fallback ultra simple si no hay spaCy
             import spacy
             _nlp = spacy.blank("es")
     return _nlp

@@ -24,7 +24,7 @@ from faster_whisper import WhisperModel
 EXPERIMENTS = {
     "exp1_svm_simple": feat_simple.featurize,
     "exp2_svm_pos": feat_pos.featurize,
-    "exp3_svm_pos_emb_pro": feat_pos_emb.featurize,  # usa svm_baseline por dentro
+    "exp3_svm_pos_emb_pro": feat_pos_emb.featurize,
     "exp4_mlp_pos_emb_pro": feat_pos_emb.featurize,
 }
 
@@ -136,7 +136,7 @@ def _guess_distrito_departamento(text: str, ent: dict) -> dict:
             found_valid = d
             break
 
-    # Si no hay DISTRITO o el que hay no es válido, usa el encontrado
+    # Si no hay DISTRITO o el que hay no es válido, usamos el encontrado
     if found_valid:
         if ent.get("DISTRITO") not in LIMA_DISTRICTS:
             ent["DISTRITO"] = found_valid
@@ -163,15 +163,7 @@ def bio_to_spans(tokens, labels):
     return spans
 
 def fix_entities_with_rules(text: str, ent_map: dict) -> dict:
-    """
-    Reglas de respaldo y normalización:
-    - Prioriza DNI tras la palabra 'DNI'; si no hay, evita confundirlo con teléfono.
-    - Teléfono desde label (8 o 9 dígitos).
-    - Acepta DNI de 7–8 dígitos (tu ejemplo muestra 7).
-    - Extrae Dirección si aparece un patrón de vía o 'Manzana/Mz ... Lote/Lt ...'.
-    - Reconoce distritos de Lima (p.ej., San Martín de Porres) y fija DEPARTAMENTO.
-    - Refina nombre si hay 'mi nombre es|me llamo|soy ...'.
-    """
+
     ent = dict(ent_map)
 
     # 0) Nombre por bloque, si falta o es corto
@@ -222,7 +214,7 @@ def fix_entities_with_rules(text: str, ent_map: dict) -> dict:
 
     if dni_val:
         ent["NUM_DOC"] = dni_val
-        ent.pop("DNI", None)  # unifica
+        ent.pop("DNI", None)
 
     # 5) Si FECHA_NAC es 8 dígitos y no parsea -> probablemente era DNI
     fn = ent.get("FECHA_NAC")
@@ -323,7 +315,8 @@ def main():
         help="Texto manual para probar el modelo (salta la parte de audio/Whisper).",
     )
     args = ap.parse_args()
-    # elegir el featurizer según el experimento
+    
+    #se elige el featurize según el experimento
     feature_fn = EXPERIMENTS[args.exp]
 
     model_path = Path(args.model)
@@ -331,6 +324,7 @@ def main():
         print(f"[ERROR] No existe el modelo: {model_path}")
         sys.exit(1)
 
+    #ESTO LO CREAMOS SOLO PARA HACER PRUEBAS ESCRITAS
     if args.text:
         text = args.text
         print("=== Texto manual ===")

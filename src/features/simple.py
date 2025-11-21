@@ -24,7 +24,7 @@ def _token_features(tokens, i):
             "-1:word.isupper": prev.isupper(),
         })
     else:
-        features["BOS"] = True  # Begin of sentence
+        features["BOS"] = True
 
     if i < len(tokens) - 1:
         nex = tokens[i + 1]
@@ -34,7 +34,7 @@ def _token_features(tokens, i):
             "+1:word.isupper": nex.isupper(),
         })
     else:
-        features["EOS"] = True  # End of sentence
+        features["EOS"] = True
 
     return features
 

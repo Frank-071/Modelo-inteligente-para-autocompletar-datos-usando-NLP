@@ -2,7 +2,6 @@ import os
 import json
 import matplotlib.pyplot as plt
 
-# Configura acá tus experimentos y carpetas
 EXPERIMENTS = [
     ("Exp1 SVM simple",           "exp1_svm_simple"),
     ("Exp2 SVM + POS",            "exp2_svm_pos"),
@@ -26,9 +25,9 @@ def load_val_f1(exp_dir):
 
 def load_test_f1(exp_dir):
     path = os.path.join(BASE_DIR, f"{exp_dir.replace('exp', 'exp')}_test", "test_metrics.json")
-    # ej: exp1_svm_simple -> exp1_test (ajusta si tus nombres difieren)
+    
     if not os.path.exists(path):
-        # fallback: asume carpeta expX_test
+        
         path = os.path.join(BASE_DIR, f"{exp_dir.split('_')[0]}_test", "test_metrics.json")
         if not os.path.exists(path):
             return None, None

@@ -9,7 +9,7 @@ import joblib
 
 from sklearn.metrics import classification_report, f1_score
 
-from utils.conll import read_conll  # ajusta ruta si tu lector está en otro lado
+from utils.conll import read_conll
 
 from ner import svm_baseline as sb
 from ner.models import make_svm_simple, make_mlp
@@ -35,15 +35,15 @@ EXPERIMENTS = {
     },
     # Exp 3: versión PRO: rasgos + POS + embeddings proyectados + SVM avanzado
     "exp3_svm_pos_emb_pro": {
-        "feature_fn": feat_pos_emb.featurize,     # llama a svm_baseline.featurize
-        "model_fn": sb.make_pipeline,             # usa tu pipeline pro
+        "feature_fn": feat_pos_emb.featurize,
+        "model_fn": sb.make_pipeline,
         "default_model_path": "models/exp3_svm_pos_emb_pro.pkl",
         "description": "SVM PRO con simples + POS + embeddings proyectados.",
     },
     # Exp 4: mismos features PRO pero modelo MLP
     "exp4_mlp_pos_emb_pro": {
-        "feature_fn": feat_pos_emb.featurize,     # mismos features pro
-        "model_fn": make_mlp,                    # cambiamos solo el clasificador
+        "feature_fn": feat_pos_emb.featurize,
+        "model_fn": make_mlp,
         "default_model_path": "models/exp4_mlp_pos_emb_pro.pkl",
         "description": "MLP con simples + POS + embeddings proyectados.",
     },

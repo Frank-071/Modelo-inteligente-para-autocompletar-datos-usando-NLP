@@ -11,7 +11,6 @@ from features import pos as feat_pos
 from features import pos_emb as feat_pos_emb
 
 
-# Debe matchear con main_train.py
 EXPERIMENTS = {
     "exp1_svm_simple": {
         "feature_fn": feat_simple.featurize,
@@ -22,7 +21,7 @@ EXPERIMENTS = {
         "default_model_path": "models/exp2_svm_pos.pkl",
     },
     "exp3_svm_pos_emb_pro": {
-        "feature_fn": feat_pos_emb.featurize,      # usa svm_baseline.featurize
+        "feature_fn": feat_pos_emb.featurize,
         "default_model_path": "models/exp3_svm_pos_emb_pro.pkl",
     },
     "exp4_mlp_pos_emb_pro": {

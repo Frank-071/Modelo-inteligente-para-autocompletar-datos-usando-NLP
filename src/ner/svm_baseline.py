@@ -8,15 +8,10 @@ import os
 import spacy
 from spacy.tokens import Doc
 
-# -----------------------------
 # Carga spaCy (vectores + POS)
-# -----------------------------
 nlp = spacy.load("es_core_news_md", disable=["parser", "ner", "lemmatizer"])
 VEC_DIM = nlp.vocab.vectors_length or 300
 
-# ================================
-#  Config rápido (ajustable por ENV)
-# ================================
 # Embedding context:
 #   - "cur"  -> solo vector del token actual  (rápido)
 #   - "pnc"  -> prev + cur + next            (más rico, más lento)
@@ -24,7 +19,7 @@ EMB_CTX = os.getenv("EMB_CTX", "cur").lower()  # "cur" | "pnc"
 CTX_MULT = 1 if EMB_CTX == "cur" else 3
 
 # Dimensión de la proyección aleatoria (a menor, más rápido/ligero)
-PROJ_DIM = int(os.getenv("PROJ_DIM", "32"))    # p.ej., 32 (rápido) o 64 (mejor)
+PROJ_DIM = int(os.getenv("PROJ_DIM", "32"))
 
 # Matriz de proyección aleatoria (fija para reproducibilidad)
 _RND = np.random.RandomState(42)
@@ -65,7 +60,7 @@ def token_features(sent: List[Tuple[str, str]], i: int) -> Dict[str, object]:
     wlow = w.lower()
     for n in (2, 3):
         if len(wlow) >= n:
-            lim = min(5, len(wlow) - n + 1)  # máx 5 por token
+            lim = min(5, len(wlow) - n + 1)
             for j in range(lim):
                 feats[f"ch{n}={wlow[j:j+n]}"] = 1
 
@@ -93,10 +88,8 @@ def featurize(sents: List[List[Tuple[str,str]]]):
     # Construye Docs respetando tu tokenización
     docs = [Doc(nlp.vocab, words=[w for (w, _) in sent]) for sent in sents]
 
-    # spaCy v3 en batch (usa varios cores)
     nproc = max(1, (os.cpu_count() or 2) - 1)
     for sent, doc in zip(sents, nlp.pipe(docs, batch_size=256, n_process=nproc)):
-        # Asegura POS si el pipeline no lo dejó (raro, pero por si acaso)
         if all(t.pos_ == "" for t in doc):
             if "tok2vec" in nlp.pipe_names:
                 nlp.get_pipe("tok2vec")(doc)
@@ -119,14 +112,13 @@ def featurize(sents: List[List[Tuple[str,str]]]):
             # embeddings comprimidos
             if EMB_CTX == "cur":
                 v = vecs[i]
-            else:  # "pnc": prev+cur+next
+            else:
                 v_prev = vecs[i-1] if i > 0 else _zero_vec()
                 v_cur  = vecs[i]
                 v_next = vecs[i+1] if i < len(sent)-1 else _zero_vec()
                 v = np.concatenate([v_prev, v_cur, v_next]).astype("float32")
             # si EMB_CTX=="cur", v ya es (VEC_DIM,); si "pnc", es (3*VEC_DIM,)
             if v.ndim == 1 and v.shape[0] != _RP.shape[0]:
-                # ampliar a contexto esperado rellenando con ceros si hace falta
                 pad = np.zeros((_RP.shape[0] - v.shape[0],), dtype="float32")
                 v = np.concatenate([v, pad])
 
