@@ -1,6 +1,8 @@
 # src/main.py
 # Demo: audio -> Whisper (STT) -> NER (SVM) -> JSON
 
+#ESTA PARTE ES COMO LA DE PREPROCESAMIENTO
+
 import sys, os, re, time, json, warnings
 from pathlib import Path
 from datetime import datetime as dt
@@ -330,6 +332,7 @@ def main():
         print("=== Texto manual ===")
         print(text)
 
+    #EN CASO NO HAYA PRUEBAS ESCRITAS, ESCUCHA Y TRANSCRIBE
     else:
         out_wav = Path(args.out_wav)
         out_wav.parent.mkdir(parents=True, exist_ok=True)

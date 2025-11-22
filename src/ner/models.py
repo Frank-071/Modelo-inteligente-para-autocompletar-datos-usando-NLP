@@ -7,9 +7,9 @@ from sklearn.neural_network import MLPClassifier
 
 
 def make_svm_simple():
-    """
-    SVM lineal clásico para NER con features de tipo diccionario.
-    """
+    
+    #SVM lineal clásico para NER con features de tipo diccionario.
+    
     return Pipeline([
         ("vec", DictVectorizer(sparse=True)),
         ("clf", LinearSVC())
@@ -17,9 +17,9 @@ def make_svm_simple():
 
 
 def make_mlp():
-    """
-    MLP sencillo para comparar contra SVM usando las mismas features.
-    """
+    
+    #MLP sencillo para comparar contra SVM usando las mismas features.
+    
     return Pipeline([
         ("vec", DictVectorizer(sparse=True)),
         ("clf", MLPClassifier(

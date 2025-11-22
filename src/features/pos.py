@@ -1,6 +1,6 @@
 # src/features/pos.py
 
-from .simple import _token_features  # reutilizamos lo básico
+from .simple import _token_features
 
 _nlp = None
 
@@ -25,7 +25,6 @@ def _get_pos_tags(tokens):
     text = " ".join(tokens)
     doc = nlp(text)
 
-    # Si la segmentación no calza, hacemos un fallback token por token
     if len(doc) != len(tokens):
         tags = []
         for tok in tokens:

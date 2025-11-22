@@ -8,7 +8,7 @@ import os
 import spacy
 from spacy.tokens import Doc
 
-# Carga spaCy (vectores + POS)
+# Usamos spaCy (vectores + POS)
 nlp = spacy.load("es_core_news_md", disable=["parser", "ner", "lemmatizer"])
 VEC_DIM = nlp.vocab.vectors_length or 300
 
@@ -78,14 +78,13 @@ def token_features(sent: List[Tuple[str, str]], i: int) -> Dict[str, object]:
     return feats
 
 def featurize(sents: List[List[Tuple[str,str]]]):
-    """
-    X: dict-features (rasgos + POS + embeddings comprimidos)
-    y: etiquetas BIO
-    Optimizado con nlp.pipe (batch, multiproceso).
-    """
+
+    #X: dict-features (rasgos + POS + embeddings comprimidos)
+    #y: etiquetas BIO
+    #Optimizado con nlp.pipe (batch, multiproceso).
+
     X, y = [], []
 
-    # Construye Docs respetando tu tokenización
     docs = [Doc(nlp.vocab, words=[w for (w, _) in sent]) for sent in sents]
 
     nproc = max(1, (os.cpu_count() or 2) - 1)
@@ -100,7 +99,6 @@ def featurize(sents: List[List[Tuple[str,str]]]):
             else:
                 raise RuntimeError("El modelo spaCy no tiene morphologizer ni tagger para POS.")
 
-        # vectores por token (fallback a ceros)
         vecs = [(t.vector if t.has_vector else _zero_vec()) for t in doc]
 
         for i, (_, tag) in enumerate(sent):

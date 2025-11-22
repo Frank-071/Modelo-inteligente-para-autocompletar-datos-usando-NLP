@@ -40,13 +40,10 @@ def _token_features(tokens, i):
 
 
 def featurize(sentences):
-    """
-    sentences: lista de oraciones,
-               cada oración = lista de (token, tag)
-    Devuelve:
-      X: lista de dicts de features
-      y: lista de etiquetas BIO
-    """
+    
+    #X: lista de dicts de features
+    #y: lista de etiquetas BIO
+
     X, y = [], []
     for sent in sentences:
         tokens = [w for (w, t) in sent]

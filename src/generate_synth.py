@@ -132,10 +132,9 @@ def gen_dni():
 PLACEHOLDER_RE = re.compile(r"\{([A-Z_]+)\}")
 
 def render_with_spans(template: str, values: dict):
-    """
-    Devuelve:
-    - text final con todos los placeholders reemplazados
-    """
+    
+    #Devuelve: - text final con todos los placeholders reemplazados
+
     out_chunks = []
     spans = {k: [] for k in values.keys()}
     i = 0
