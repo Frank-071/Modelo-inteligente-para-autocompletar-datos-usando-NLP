@@ -10,3 +10,5 @@ faster-whisper
 openai-whisper
 pyyaml
 tqdm
+sounddevice
+soundfile
