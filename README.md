@@ -1,3 +1,5 @@
+MANUAL PARA LA CREACIÓN DE DATOS SINTÉTICOS, ENTRENAMIENTO, EVALUACIÓN Y EJECUCIÓN DEL MODELO: https://drive.google.com/file/d/1JZv1_JIho3sbFd2r5zFGfu0RCreiJmii/view?usp=drive_link
+
 # TA – Pipeline de Extracción de Datos por Voz (ES)
 Prototipo reproducible para la Parte 4–10 del informe (Experimentación y Resultados).
 
